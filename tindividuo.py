@@ -31,11 +31,12 @@ class TIndividuo:
         self._adaptacion()
 
     def _adaptacion(self):
-        self.x = float(self.x_min +
-                     int(''.join(str(e) for e in self.genes), base=2) *
-                     ((self.x_max - self.x_min)/(2 **
-                                                 self.lcrom - self.x_min)))
-        f = 20 + exp(1 - 20 * (exp(-0.2 * abs(self.x))))- exp(cos(2*pi*self.x))
+        self.x = float(self.x_min
+                       + int(''.join(str(e) for e in self.genes), base=2)
+                       * ((self.x_max - self.x_min)/(2 ** self.lcrom
+                                                     - self.x_min)))
+        f = 20 + exp(1) - 20 * (exp(-0.2 * abs(self.x)))
+        - exp(cos(2 * pi * self.x))
         print(f)
 
 
