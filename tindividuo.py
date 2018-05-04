@@ -20,15 +20,14 @@ class TIndividuo:
 
         if genes:
             self.genes = genes  # cadena de bits (genotipo)
-            self._adaptacion()
         else:
-                self._genera_indiv()
+            self._genera_indiv()
         self.elite = False      # indicativo de pertenecer a la elite
+        self.aptitud = self._adaptacion()
 
     def _genera_indiv(self):
         self.genes = [1 if random.random_sample() < 0.5 else 0
                       for x in range(0, self.lcrom)]
-        self._adaptacion()
 
     def _adaptacion(self):
         self.x = float(self.x_min
@@ -37,9 +36,12 @@ class TIndividuo:
                                                      - self.x_min)))
         f = 20 + exp(1) - 20 * (exp(-0.2 * abs(self.x)))
         - exp(cos(2 * pi * self.x))
-        print(f)
+        return f
+
+    def getAptitud(self):
+        if hasattr(self, 'aptitud'):
+            return self.aptitud
+        else:
+            return None
 
 
-ind = TIndividuo(25, 0, 32,)
-
-print(ind.genes)
