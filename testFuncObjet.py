@@ -10,8 +10,8 @@ class Display:
         x = 20 + np.exp(1) - 20 * (np.exp(-0.2 * abs(t)))- np.exp(np.cos(2*np.pi*t))
         return x
 
-    def disp(self, x_min, x_max, tol):
+    def disp(self, x_min, x_max, tol, pob):
         t1 = np.arange(x_min, x_max, tol)
 
-        plt.plot(t1, self.f(t1), 'k',)
+        plt.plot(t1, self.f(t1), 'k',pob, self.f(np.asarray(pob)), 'bo')
         plt.show()
