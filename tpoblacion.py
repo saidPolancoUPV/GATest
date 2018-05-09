@@ -13,7 +13,7 @@ class TPoblacion:
         self.pob = [TIndividuo(lcrom, x_min, x_max) for i in range(0, tamPob)]
 
     def getAdaptaciones(self):
-        return [x.getAptitud() for x in self.pob]
+        return [x.x for x in self.pob], [x.getAptitud() for x in self.pob]
 
     def evaluacion(self):
         punt_acu = 0.0     # puntuación acumulada de los individuos

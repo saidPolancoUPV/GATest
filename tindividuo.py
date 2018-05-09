@@ -1,5 +1,4 @@
-from numpy import random
-from math import exp, cos, pi
+import numpy as np
 
 
 class TIndividuo:
@@ -26,16 +25,17 @@ class TIndividuo:
         self.aptitud = self._adaptacion()
 
     def _genera_indiv(self):
-        self.genes = [1 if random.random_sample() < 0.5 else 0
+        self.genes = [1 if np.random.random_sample() < 0.5 else 0
                       for x in range(0, self.lcrom)]
 
     def _adaptacion(self):
         self.x = float(self.x_min
                        + int(''.join(str(e) for e in self.genes), base=2)
-                       * ((self.x_max - self.x_min)/(2 ** self.lcrom
-                                                     - self.x_min)))
-        f = 20 + exp(1) - 20 * (exp(-0.2 * abs(self.x)))
-        - exp(cos(2 * pi * self.x))
+                       * ((self.x_max - self.x_min)/(2 ** self.lcrom - 1)))
+
+        f = 20 + np.exp(1.0) - 20 * (np.exp(-0.2 * abs(self.x))) - np.exp(
+            np.cos(2 * np.pi * self.x))
+
         return f
 
     def getAptitud(self):
@@ -43,5 +43,3 @@ class TIndividuo:
             return self.aptitud
         else:
             return None
-
-
