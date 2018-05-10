@@ -1,4 +1,6 @@
 from tindividuo import TIndividuo
+from copy import deepcopy
+
 # import numpy as np
 # import matplotlib as plt
 
@@ -31,4 +33,22 @@ class TPoblacion:
             self.pob[i].punt_acu = self.pob[i].puntuacion + punt_acu
             punt_acu += self.pob[i].puntuacion
 
-        print(self.pos_mejor, "aptitud= ", aptitud_mejor)
+    def muestraPoblacion(self):
+        self.evaluacion()
+        for i in range(0, self.tamPob):
+            print("ind {} x={}, "
+                  "aptitud={},"
+                  "elite={}".format(i, self.pob[i].x, self.pob[i].getAptitud(),
+                                    self.pob[i].elite))
+
+    def muestraMejor(self):
+        self.evaluacion()
+        print("ind {} x={}, aptitud={}".format(
+            self.pos_mejor, self.pob[self.pos_mejor].x,
+            self.pob[self.pos_mejor].getAptitud()))
+
+    def retornaPoblacion(self):
+        return self.pob
+
+    def clone(self):
+        return deepcopy(self)
