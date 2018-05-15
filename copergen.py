@@ -77,7 +77,7 @@ class COperGen:
 
         # Se cruzan los individuos elegidos en un punto al azar
         punto_cruce = int(random.random_integers(0, self.lcrom-2))
-        print("Punto de cruce {}".format(punto_cruce))
+        # print("Punto de cruce {}".format(punto_cruce))
 
         for i in range(0, num_sel_cruce, 2):
             h1 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.pob[
@@ -109,13 +109,8 @@ class COperGen:
             mutado = False
             for j in range(0, self.lcrom):
                 if random.random_sample() < self.prob_mut and not i.elite:
-                    print(i.genes)
-                    print(i.genes[j])
                     i.genes[j] = 0 if i.genes[j] == 1 else 0
-                    print(i.genes)
-                    print(j)
                     mutado = True
-                    print("mutado")
                 if mutado:
                     i.getAptitud()
 
