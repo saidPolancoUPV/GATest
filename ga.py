@@ -1,4 +1,5 @@
 import argparse
+from copy import deepcopy
 from math import ceil, log
 from tpoblacion import TPoblacion
 from testFuncObjet import Display
@@ -30,14 +31,20 @@ pob = TPoblacion(args.tamPob, lcrom, args.x_min, args.x_max)
 
 d = Display()
 
-d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
-
-# 2.- Se evalua la población
-pob.evaluacion()
+# d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
 
 # Bucle de evolución
 for i in range(0, args.gen):
+    # 2.- Se evalua la poblacion
+    pob.evaluacion()
+    d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
     og.obtenPoblacion(pob.clone())
+    og.showPob()
     # 3.- Seleccion de los indiviudos a ser reproducidos
     og.seleccion()
+    og.showPob()
     og.reproduccion()
+    og.showPob()
+    og.mutacion()
+    og.showPob()
+    pob.pob = deepcopy(og.pob)

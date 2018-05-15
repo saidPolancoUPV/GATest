@@ -16,4 +16,4 @@ class Display:
 
         plt.plot(t1, self.f(t1), 'k', np.asarray(pob[0]), np.asarray(pob[1]),
                  'bo')
-        plt.show()
+        plt.draw()

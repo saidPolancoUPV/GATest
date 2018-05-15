@@ -39,7 +39,5 @@ class TIndividuo:
         return f
 
     def getAptitud(self):
-        if hasattr(self, 'aptitud'):
-            return self.aptitud
-        else:
-            return None
+        self.aptitud = self._adaptacion()
+        return self.aptitud

@@ -40,7 +40,6 @@ class COperGen:
         for i in range(0, self.tamPob):
             if self.pob[i].elite:   # ELITISMO
                 sel_super.append(i)
-                print("elite: {}".format(i))
             else:
                 pos_super = 0
                 prob = random.random_sample()
@@ -57,14 +56,10 @@ class COperGen:
         self.pob = []  # limpiamos la poblacion original
         self.pob = [deepcopy(i) for i in pob_aux]
         del pob_aux  # liberamos espacio en memoria
-        print([i.aptitud for i in self.pob])
         del sel_super
         del sel_elite
 
     def reproduccion(self):
-        print('*'*20)
-        for i in self.pob:
-            print(i.getAptitud())
         num_sel_cruce = 0  # num de individuos seleccionados a cruzar
         sel_cruce = []
         # Se eligen los individuos a cruzar
@@ -96,18 +91,35 @@ class COperGen:
             # print(self.pob[
             #    sel_cruce[i+1]].getAptitud(), " vs ", h2.getAptitud())
 
-            if h1.getAptitud() < self.pob[
+            if h1.getAptitud() > self.pob[
                 sel_cruce[
                     i]].getAptitud() or not self.pob[sel_cruce[i]].elite:
                 self.pob[sel_cruce[i]] = deepcopy(h1)
 
-            if h2.getAptitud() < self.pob[
+            if h2.getAptitud() > self.pob[
                 sel_cruce[
                     i+1]].getAptitud() or not self.pob[sel_cruce[i+1]].elite:
                 self.pob[sel_cruce[i+1]] = deepcopy(h2)
+            del h1
+            del h2
+        del sel_cruce
 
+    def mutacion(self):
+        for i in self.pob:
+            mutado = False
+            for j in range(0, self.lcrom):
+                if random.random_sample() < self.prob_mut and not i.elite:
+                    print(i.genes)
+                    print(i.genes[j])
+                    i.genes[j] = 0 if i.genes[j] == 1 else 0
+                    print(i.genes)
+                    print(j)
+                    mutado = True
+                    print("mutado")
+                if mutado:
+                    i.getAptitud()
+
+    def showPob(self):
+        print('*'*20)
         for i in self.pob:
             print(i.getAptitud())
-        del sel_cruce
-        del h1
-        del h2
