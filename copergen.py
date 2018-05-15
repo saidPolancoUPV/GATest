@@ -62,6 +62,9 @@ class COperGen:
         del sel_elite
 
     def reproduccion(self):
+        print('*'*20)
+        for i in self.pob:
+            print(i.getAptitud())
         num_sel_cruce = 0  # num de individuos seleccionados a cruzar
         sel_cruce = []
         # Se eligen los individuos a cruzar
@@ -89,9 +92,22 @@ class COperGen:
                 sel_cruce[i+1]].genes[0:punto_cruce] + self.pob[
                     sel_cruce[i]].genes[punto_cruce:self.lcrom])
 
-            # print(self.pob[sel_cruce[i]].getAptitud(), " vs ", h1.getAptitud())
+            # print(self.pob[sel_cruce[i]].getAptitud(), "vs", h1.getAptitud())
             # print(self.pob[
             #    sel_cruce[i+1]].getAptitud(), " vs ", h2.getAptitud())
 
-            if h1.getAptitud() < self.pob[sel_cruce[i]].getAptitud() or not self.pob[sel_cruce[i]].elite:
-                print("aaqui me quedé")
+            if h1.getAptitud() < self.pob[
+                sel_cruce[
+                    i]].getAptitud() or not self.pob[sel_cruce[i]].elite:
+                self.pob[sel_cruce[i]] = deepcopy(h1)
+
+            if h2.getAptitud() < self.pob[
+                sel_cruce[
+                    i+1]].getAptitud() or not self.pob[sel_cruce[i+1]].elite:
+                self.pob[sel_cruce[i+1]] = deepcopy(h2)
+
+        for i in self.pob:
+            print(i.getAptitud())
+        del sel_cruce
+        del h1
+        del h2
