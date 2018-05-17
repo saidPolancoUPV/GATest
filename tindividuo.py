@@ -1,4 +1,5 @@
 import numpy as np
+from funTest import fun4 as f
 
 
 class TIndividuo:
@@ -33,10 +34,9 @@ class TIndividuo:
                        + int(''.join(str(e) for e in self.genes), base=2)
                        * ((self.x_max - self.x_min)/(2 ** self.lcrom - 1)))
 
-        f = 20 + np.exp(1.0) - 20 * (np.exp(-0.2 * abs(self.x))) - np.exp(
-            np.cos(2 * np.pi * self.x))
+        r = f(self.x)
 
-        return f
+        return r
 
     def getAptitud(self):
         self.aptitud = self._adaptacion()

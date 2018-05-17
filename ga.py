@@ -31,13 +31,13 @@ pob = TPoblacion(args.tamPob, lcrom, args.x_min, args.x_max)
 
 d = Display()
 
-d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
+d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
 
 # Bucle de evolución
 for i in range(0, args.gen):
     # 2.- Se evalua la poblacion
     pob.evaluacion()
-    d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
+    # d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
     og.obtenPoblacion(pob.clone())
     # og.showPob()
     # 3.- Seleccion de los indiviudos a ser reproducidos
@@ -50,4 +50,4 @@ for i in range(0, args.gen):
     pob.pob = deepcopy(og.pob)
 
 pob.muestraMejor()
-d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
+d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
