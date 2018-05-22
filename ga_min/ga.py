@@ -2,9 +2,8 @@ import argparse
 from copy import deepcopy
 from math import ceil, log
 from tpoblacion import TPoblacion
-from testFuncObjet import Display
+from testFuncObject import Display
 from copergen import COperGen
-
 
 # Se obtienen los parámetros por medio de la línea de comandos
 parser = argparse.ArgumentParser(description="Algoritmo genético simple")
@@ -37,7 +36,7 @@ d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
 for i in range(0, args.gen):
     # 2.- Se evalua la poblacion
     pob.evaluacion()
-    # d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
+    d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
     og.obtenPoblacion(pob.clone())
     # og.showPob()
     # 3.- Seleccion de los indiviudos a ser reproducidos

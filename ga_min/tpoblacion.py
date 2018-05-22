@@ -15,7 +15,7 @@ class TPoblacion:
         self.pob = [TIndividuo(lcrom, x_min, x_max) for i in range(0, tamPob)]
 
     def getAdaptaciones(self):
-        return [x.x for x in self.pob], [x.getAptitud() for x in self.pob]
+        return [x.x for x in self.pob], [x.aptitud_bruta for x in self.pob]
 
     def evaluacion(self):
         self.revisar_adap_mini()
@@ -24,13 +24,13 @@ class TPoblacion:
         self.sumaptitud = 0.0     # suma del aptitud
 
         for i in range(0, self.tamPob):
-            self.sumaptitud += self.pob[i].getAptitud()
-            if self.pob[i].getAptitud() > aptitud_mejor:
+            self.sumaptitud += self.pob[i].aptitud
+            if self.pob[i].aptitud > aptitud_mejor:
                 self.pos_mejor = i
-                aptitud_mejor = self.pob[i].getAptitud()
+                aptitud_mejor = self.pob[i].aptitud
 
         for i in range(0, self.tamPob):
-            self.pob[i].puntuacion = self.pob[i].getAptitud()/self.sumaptitud
+            self.pob[i].puntuacion = self.pob[i].aptitud / self.sumaptitud
             self.pob[i].punt_acu = self.pob[i].puntuacion + punt_acu
             punt_acu += self.pob[i].puntuacion
 
@@ -57,7 +57,7 @@ class TPoblacion:
     def revisar_adap_mini(self):
         cmax = self.pob[0].aptitud_bruta
         for i in self.pob:
-            if i.apititud:
+            if hasattr(i, 'aptitud'):
                 if i.aptitud > cmax:
                     cmax = i.aptitud_bruta
 
