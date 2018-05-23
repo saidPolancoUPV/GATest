@@ -1,5 +1,5 @@
 import numpy as np
-from funTest import fun2 as f
+from funTest import fun4 as f
 
 
 class TIndividuo:
@@ -39,8 +39,5 @@ class TIndividuo:
         return r
 
     def getAptitud(self):
-        # self.aptitud = self._adaptacion()
-        if self.aptitud:
-            return self.aptitud
-        else:
-            return None
+        self.aptitud_bruta = self._adaptacion()
+        return self.aptitud_bruta
