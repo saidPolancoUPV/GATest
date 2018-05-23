@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from funTest import fun4 as f
+from funTest import fun1 as f
 
 
 class Display:

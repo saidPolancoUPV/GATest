@@ -1,5 +1,5 @@
 import numpy as np
-from funTest import fun4 as f
+from funTest import fun1 as f
 
 
 class TIndividuo:
