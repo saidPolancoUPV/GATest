@@ -81,7 +81,7 @@ class COperGen:
         # print("Punto de cruce {}".format(punto_cruce))
 
         for i in range(0, num_sel_cruce, 2):
-            h1 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.pob[
+            h1 = TIndividuo(self.lcrom, self.x_min, self.x_max,self.pob[
                 sel_cruce[i]].genes[0:punto_cruce] + self.pob[
                     sel_cruce[i+1]].genes[punto_cruce:self.lcrom])
             h2 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.pob[
@@ -104,6 +104,16 @@ class COperGen:
             del h1
             del h2
         del sel_cruce
+
+    def cruza(p1, p2, pc):
+        if len(p1) != len(p2):
+            raise TypeError("El tamaño de los idividuos no coincide")
+
+        x = []
+        nvar = len(p1)
+        for i in range(0, nvar):
+            x.append(
+
 
     def mutacion(self):
         for i in self.pob:
