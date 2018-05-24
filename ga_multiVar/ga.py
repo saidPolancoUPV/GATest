@@ -1,8 +1,8 @@
 import argparse
-from copy import deepcopy
+# from copy import deepcopy
 from math import ceil, log
 from tpoblacion import TPoblacion
-from testFuncObjet import Display
+# from testFuncObjet import Display
 from copergen import COperGen
 
 
@@ -10,6 +10,8 @@ from copergen import COperGen
 parser = argparse.ArgumentParser(description="Algoritmo genético simple")
 parser.add_argument("x_max", type=float, help="Límite superior del segmento")
 parser.add_argument("x_min", type=float, help="Límite infeior del segmento")
+parser.add_argument("nvar", type=int,
+                    help="Número de variables en el problema")
 parser.add_argument("tol", type=float, help="Exactitud o tolerancia : 0.000x")
 parser.add_argument("tamPob", type=int, help="Tamaño de la población")
 parser.add_argument("gen", type=int, help="Número de generaciones")
@@ -27,27 +29,27 @@ lcrom = ceil(log(1 + ((args.x_max - args.x_min)/args.tol), 2))
 og = COperGen()
 
 # 1.- Se genera la población inicial. (cada individuo se auto evalua)
-pob = TPoblacion(args.tamPob, lcrom, args.x_min, args.x_max)
+pob = TPoblacion(args.tamPob, lcrom, args.x_min, args.x_max, args.nvar)
 
-d = Display()
+# d = Display()
 
-d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
+# d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
 
 # Bucle de evolución
-for i in range(0, args.gen):
-    # 2.- Se evalua la poblacion
-    pob.evaluacion()
-    d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
-    og.obtenPoblacion(pob.clone())
-    # og.showPob()
-    # 3.- Seleccion de los indiviudos a ser reproducidos
-    og.seleccion()
-    # og.showPob()
-    og.reproduccion()
-    # og.showPob()
-    og.mutacion()
-    # og.showPob()
-    pob.pob = deepcopy(og.pob)
+# for i in range(0, args.gen):
+#     2.- Se evalua la poblacion
+pob.evaluacion()
+#    d.disp(0.0, 32.0, 0.001, pob.getAdaptaciones())
+og.obtenPoblacion(pob.clone())
+og.showPob()
+#     3.- Seleccion de los indiviudos a ser reproducidos
+og.seleccion()
+#     og.showPob()
+#    og.reproduccion()
+#     og.showPob()
+#    og.mutacion()
+#     og.showPob()
+#    pob.pob = deepcopy(og.pob)
 
-pob.muestraMejor()
-d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())
+# pob.muestraMejor()
+# d.disp(args.x_min, args.x_max, args.tol, pob.getAdaptaciones())

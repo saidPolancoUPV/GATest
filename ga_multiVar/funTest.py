@@ -1,9 +1,13 @@
 import numpy as np
 
 
-def fun1(x1, x2):
+def fun1(x):
+    if len(x) != 2:
+        raise IndexError("Numero de elementos incorrecto")
+
     y = 0.5 - ((-0.5 + np.sin(np.sqrt(
-        x1 ** 2 + x2 ** 2)) ** 2) / (1.0 + 0.001 * (x1 ** 2 + x2 ** 2) ** 2))
+        x[0] ** 2 + x[1] ** 2)) ** 2) / (1.0 + 0.001
+                                         * (x[0] ** 2 + x[1] ** 2) ** 2))
     return y
 
 
