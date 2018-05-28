@@ -45,9 +45,9 @@ og.showPob()
 #     3.- Seleccion de los indiviudos a ser reproducidos
 og.seleccion()
 #     og.showPob()
-#    og.reproduccion()
+og.reproduccion()
 #     og.showPob()
-#    og.mutacion()
+og.mutacion()
 #     og.showPob()
 #    pob.pob = deepcopy(og.pob)
 

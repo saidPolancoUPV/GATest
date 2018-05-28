@@ -20,6 +20,7 @@ class COperGen:
     def seleccion(self):
         sel_super = []
         TAM_ELITE = int(ceil(self.tamPob * 2 / 100))
+        indASel = self.tamPob
 
         # Se selecciona la elite
         sel_elite = [0 for i in range(0, TAM_ELITE)]
@@ -38,19 +39,14 @@ class COperGen:
         # Se seleccionan tam_pob individuos para reproducirse
         # se generan números aleatorios entre 0 y 1,
         # seleccionan individuos de acueredo con su puntuación acumulada
-        for i in range(0, self.tamPob):
-            if self.pob[i].elite:   # ELITISMO
-                sel_super.append(i)
-            else:
-                pos_super = 0
-                prob = random.random_sample()
-                while (prob > self.pob[pos_super].punt_acu and
-                       pos_super < self.tamPob):
-                    pos_super += 1
-                if pos_super < self.tamPob:
-                    sel_super.append(pos_super)
-                else:
-                    sel_super.append(pos_super - 1)
+
+        for i in range(0, indASel):
+            ind1 = random.randint(0, self.tamPob)
+            ind2 = random.randint(0, self.tamPob)
+
+            sel_super.append(ind1 if self.pob[ind1].aptitud
+                             > self.pob[ind2].aptitud
+                             and not self.pob[ind2].elite else ind2)
 
         # se genera la población intermedia
         pob_aux = [deepcopy(self.pob[i]) for i in sel_super]
@@ -77,16 +73,14 @@ class COperGen:
             num_sel_cruce -= 1
 
         # Se cruzan los individuos elegidos en un punto al azar
-        punto_cruce = int(random.random_integers(0, self.lcrom-2))
+        # punto_cruce = int(random.random_integers(0, self.lcrom-2))
         # print("Punto de cruce {}".format(punto_cruce))
 
         for i in range(0, num_sel_cruce, 2):
-            h1 = TIndividuo(self.lcrom, self.x_min, self.x_max,self.pob[
-                sel_cruce[i]].genes[0:punto_cruce] + self.pob[
-                    sel_cruce[i+1]].genes[punto_cruce:self.lcrom])
-            h2 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.pob[
-                sel_cruce[i+1]].genes[0:punto_cruce] + self.pob[
-                    sel_cruce[i]].genes[punto_cruce:self.lcrom])
+            i1, i2 = self.cruza(self.pob[i].genes, self.pob[i+1].genes)
+
+            h1 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.nvar, i1)
+            h2 = TIndividuo(self.lcrom, self.x_min, self.x_max, self.nvar, i2)
 
             # print(self.pob[sel_cruce[i]].getAptitud(), "vs", h1.getAptitud())
             # print(self.pob[
@@ -105,15 +99,18 @@ class COperGen:
             del h2
         del sel_cruce
 
-    def cruza(p1, p2, pc):
+    def cruza(self, p1, p2):
         if len(p1) != len(p2):
             raise TypeError("El tamaño de los idividuos no coincide")
 
-        x = []
-        nvar = len(p1)
-        for i in range(0, nvar):
-            x.append(
+        h1 = []
+        h2 = []
+        for i in range(0, self.nvar):
+            punto_cruce = int(random.random_integers(0, self.lcrom-2))
+            h1.append(p1[i][0:punto_cruce] + p2[i][punto_cruce:self.lcrom])
+            h2.append(p2[i][0:punto_cruce] + p1[i][punto_cruce:self.lcrom])
 
+        return h1, h2
 
     def mutacion(self):
         for i in self.pob:
