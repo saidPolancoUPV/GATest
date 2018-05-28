@@ -43,8 +43,8 @@ class TIndividuo:
                      + int(''.join(str(e) for e in gen), base=2)
                      * ((self.x_max - self.x_min)/(2 ** self.lcrom - 1)))
 
-    def getAptitud(self):
-        if not hasattr(self, 'aptitud'):
+    def getAptitud(self, ban=False):
+        if not hasattr(self, 'aptitud') or ban:
             self.aptitud = self._adaptacion()
         return self.aptitud
 

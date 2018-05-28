@@ -13,26 +13,27 @@ class TPoblacion:
         self.x_min = x_min
         self.x_max = x_max
         self.nvar = nvar
-        self.pob = [TIndividuo(lcrom, x_min, x_max, nvar) for i in range(0, tamPob)]
+        self.pob = [TIndividuo(
+            lcrom, x_min, x_max, nvar) for i in range(0, tamPob)]
 
     def getAdaptaciones(self):
         return [x.x for x in self.pob], [x.getAptitud() for x in self.pob]
 
     def evaluacion(self):
-        punt_acu = 0.0     # puntuación acumulada de los individuos
+        # punt_acu = 0.0     # puntuación acumulada de los individuos
         aptitud_mejor = 0.0   # mejor aptitud
-        self.sumaptitud = 0.0     # suma del aptitud
+        # self.sumaptitud = 0.0     # suma del aptitud
 
         for i in range(0, self.tamPob):
-            self.sumaptitud += self.pob[i].getAptitud()
+            # self.sumaptitud += self.pob[i].getAptitud()
             if self.pob[i].getAptitud() > aptitud_mejor:
                 self.pos_mejor = i
                 aptitud_mejor = self.pob[i].getAptitud()
 
-        for i in range(0, self.tamPob):
-            self.pob[i].puntuacion = self.pob[i].getAptitud()/self.sumaptitud
-            self.pob[i].punt_acu = self.pob[i].puntuacion + punt_acu
-            punt_acu += self.pob[i].puntuacion
+        # for i in range(0, self.tamPob):
+            # self.pob[i].puntuacion = self.pob[i].getAptitud()/self.sumaptitud
+            # self.pob[i].punt_acu = self.pob[i].puntuacion + punt_acu
+            # punt_acu += self.pob[i].puntuacion
 
     def muestraPoblacion(self):
         self.evaluacion()

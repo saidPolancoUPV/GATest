@@ -5,7 +5,7 @@ from tindividuo import TIndividuo
 
 class COperGen:
 
-    def __init__(self, prob_cruce=0.6, prob_mut=0.01):
+    def __init__(self, prob_cruce=0.7, prob_mut=0.01):
         self.prob_cruce = prob_cruce
         self.prob_mut = prob_mut
 
@@ -115,12 +115,13 @@ class COperGen:
     def mutacion(self):
         for i in self.pob:
             mutado = False
-            for j in range(0, self.lcrom):
-                if random.random_sample() < self.prob_mut and not i.elite:
-                    i.genes[j] = 0 if i.genes[j] == 1 else 0
-                    mutado = True
-                if mutado:
-                    i.getAptitud()
+            for j in range(0, self.nvar):
+                for k in range(0, self.lcrom):
+                    if random.random_sample() < self.prob_mut and not i.elite:
+                        i.genes[j][k] = 0 if i.genes[j][k] == 1 else 1
+                        mutado = True
+            if mutado:
+                i.getAptitud(True)
 
     def showPob(self):
         print('*'*20)
